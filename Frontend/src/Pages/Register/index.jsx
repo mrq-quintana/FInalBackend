@@ -73,7 +73,7 @@ const Register = () =>{
         if(response.data.error){
             Swal.fire({
                 icon:"error",
-                title:"Cannot Register",
+                title:"No se ha podido registrar",
                 text:response.data.error,
                 timer:2000
             }).then(result=>{
@@ -98,6 +98,14 @@ const Register = () =>{
     }
     const callbackErrorRegister = (response) =>{
         console.log(response.data);
+        Swal.fire({
+            icon:"error",
+            title:'Usuario ya existe',
+            text:"Pruebe identificarse",
+            timer:2000
+        }).then(result=>{
+            window.location.replace('/login')
+        })
     }
     return(<div>
         <div>Registrate</div>

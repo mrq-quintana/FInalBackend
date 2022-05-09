@@ -10,12 +10,31 @@ const deleteCartById = async(req,res) =>{
     let cart = await cartService.delete({_id});
         res.send(cart);
 };
+
 const deleteProductInCart = async(req,res)=>{
-    const id = req.params.id;
-    const id_prod = req.params.id_prod
-    let idProduct = await cartService.deleteProductInCart({id},{id_prod})
-        res.send(idProduct);  
-    };
+    let {pid,cid} = req.params;
+  
+    let cart = await cartService.getByWithPopulate({_id:cid});
+    
+    if(cart.products.some(element=>element.product._id.toString()===pid)){
+       
+        let product = await productService.getBy({_id:pid});
+        let productInCart = cart.products.find(element=>element.product._id.toString()===pid);
+
+        product.stock = product.stock + productInCart.quantity;
+        product._id = pid
+        await productService.update(product);
+
+        cart.products = cart.products.filter(element=>element.product._id.toString()!==pid);
+        cart._id=cid
+        await cartService.update(cart);
+
+        res.send({status:"success",message:"Producto eliminado!"})
+    }else{
+        res.status(400).send({error:"El producto no se encuentra"})
+    }
+}
+
 const addProduct = async(req,res)=>{
     let {cid,pid} = req.params;
     let {quantity} = req.body;
@@ -33,10 +52,20 @@ const addProduct = async(req,res)=>{
     res.send({status:"success",message:"Producto agregado!"})
 }
 
+const updateProductCartById = async(req,res)=>{
+    let {cid} = req.params;
+    let cart = req.body;
+    cart._id = cid
+    await cartService.update(cart)
+    res.send({status:"success",message:"Producto agregado!"})
+};
+
+
 
 export default {
     getCartById,
     addProduct,
     deleteCartById,
-    deleteProductInCart
+    deleteProductInCart,
+    updateProductCartById
 }

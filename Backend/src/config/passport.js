@@ -4,6 +4,7 @@ import local from 'passport-local';
 import jwt  from 'passport-jwt';
 import { cartService, userService } from "../services/services.js";
 import { cookieExtractor,createHash,isValidPassword } from "../utils.js";
+import {mailing} from '../comunication/gmail.js'
 const LocalStrategy = local.Strategy;
 const JWTStrategy =  jwt.Strategy;
 const ExtractJwt = jwt.ExtractJwt;
@@ -12,11 +13,11 @@ const initializePassport = () =>{
     passport.use('register',new LocalStrategy({passReqToCallback:true,usernameField:'email',session:false},async(req,username,password,done)=>{
         let {first_name,last_name,email,phone} = req.body;
         try{
-            if(!req.file) return done(null,false,{messages:"Couldn't get picture for user"})
+            if(!req.file) return done(null,false,{messages:"No completa avatar"})
            
             let user  = await userService.getBy({email})
           
-            if(user) return done(null,false,{messages:"User Already exists"});
+            if(user) return done(null,false,{messages:"El usuario ya existe"});
             let cart = await cartService.save({products:[]})
             const newUser ={
                 first_name,
@@ -30,6 +31,28 @@ const initializePassport = () =>{
             }
             try{
                 let result = await userService.save(newUser);
+                //Se envia Correo de registro
+                const mail ={
+                    from:"Confirmacion de registro <mail>",
+                    to: newUser.email,
+                    subject: "Registro correcto",
+                    html:`<h1 style="color:blue;"> Bienvenido registro correcto! </h1>
+                            <br>
+                            <img src=${newUser.profile_picture}>`
+                }
+                const mailadmin ={
+                    from:"Nuevo registro <mail>",
+                    to: "mrq.quintana@gmail.com",
+                    subject: "Nuevo registro",
+                    html:`<h1 style="color:blue;"> ${newUser.first_name} ${newUser.last_name} </h1>
+                          <br>
+                          <h1 style="color:blue;"> ${newUser.phone} </h1>
+                          <br>
+                          <h1 style="color:blue;"> ${newUser.email} </h1>`
+                }
+                mailing(mail);
+                mailing(mailadmin);
+
                 return done(null,result,{messages:"Usuario agregado"});
             }catch(err){
               
