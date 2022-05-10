@@ -71,7 +71,7 @@ const Cart = props => {
             cancelButtonColor: "red"
         }).then(result=>{
             if(result.isConfirmed){
-                cartService.finishPurchase({cid:cart._id,callbackSuccess:callbackSuccessFinishPurchase,callbackError:callbackErrorFinishPurchase});
+                cartService.finishPurchase({cid:cart._id,body:currentUser,callbackSuccess:callbackSuccessFinishPurchase,callbackError:callbackErrorFinishPurchase});
             }
         })
     }
@@ -113,8 +113,8 @@ const Cart = props => {
     const callbackSuccessFinishPurchase = response => {
         Swal.fire({
             icon:"success",
-            title:"¡Compra finalizada",
-            text:"¡Felicidades! Los productos solicitados han sido procesados y están en proceso de envío",
+            title:"Compra finalizada",
+            text:"Felicidades! Los productos solicitados han sido procesados y están en proceso de envío",
             timer:3000
         }).then(result=>{
             window.location.replace('/')
@@ -131,7 +131,11 @@ const Cart = props => {
                                 </div></> }
                 <div className="productsPanel">
                     {
-                        cart ? cart.products.map(element => <div>
+                        cart ? cart.products.map(element => 
+                        <div >
+                            <div className="imagePanel">
+                                <img src={element.product.thumbnail}></img>
+                            </div>
                             <div className="subColumn1">
                                 <p>{element.product.title}</p>
                             </div>

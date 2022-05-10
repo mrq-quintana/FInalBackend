@@ -1,8 +1,13 @@
 .column1{
+    padding:10px 15px;
+    border: 1px solid #000;  
+    border-radius: 10px;
     float:left;
-    width:70%;
+    width:60%;
 }
 .column2{
+    margin:auto;
+    text-align:center;
     float:left;
     width:30%;
 }
@@ -13,13 +18,35 @@
 
 .subColumn1{
     float:left;
-    width:50%;
+    width:25%;
 }
 .subColumn2{
     float:left;
-    width:35%;
+    width:25%;
+    
 }
 .subColumn3{
     float:left;
-    width:15%;
+    width:25%;
+    button{
+        margin-top: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 30px;
+    }
 }
+.imagePanel {
+    float:left;
+    width: 25%;
+    // padding: 10px;
+
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+}
+// .cartPanel {
+//     // border: 1px solid #000;  
+// }

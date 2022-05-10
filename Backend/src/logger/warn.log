@@ -4,3 +4,4 @@
 [2022-05-09T13:48:20.400] [WARN] default - PUT /api/carts/62794487b6e3985298d71a53 La ruta que desea ingresar no existe
 [2022-05-09T14:44:29.712] [WARN] default - DELETE /api/carts/62794487b6e3985298d71a53/products/6276f9364d1547fa69742135 La ruta que desea ingresar no existe
 [2022-05-09T14:44:44.822] [WARN] default - DELETE /api/carts/62794487b6e3985298d71a53/products/6276f9364d1547fa69742135 La ruta que desea ingresar no existe
+[2022-05-09T20:24:12.942] [WARN] default - POST /api/carts/purchase/6278709d76015f88603afc2b La ruta que desea ingresar no existe

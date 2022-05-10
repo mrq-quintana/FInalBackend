@@ -1,4 +1,5 @@
 import { cartService, productService} from "../services/services.js";
+import {cookieExtractor} from '../utils.js'
 
 const getCartById = async(req,res) =>{
     let id = req.params.cid;
@@ -60,6 +61,41 @@ const updateProductCartById = async(req,res)=>{
     res.send({status:"success",message:"Producto agregado!"})
 };
 
+const confirm = async(req,res) =>{
+    let {cid} = req.params;
+    let cart = await cartService.getBy({_id:cid});
+    console.log("Compra")
+    console.log(cart)
+    console.log("Usuario")
+    console.log(req.body)
+//Se envia Correo de registro
+// const mail ={
+//     from:"Confirmacion de registro <mail>",
+//     to: newUser.email,
+//     subject: "Registro correcto",
+//     html:`<h1 style="color:blue;"> Bienvenido registro correcto! </h1>
+//             <br>
+//             <img src=${newUser.profile_picture}>`
+// }
+// const mailadmin ={
+//     from:"Nuevo registro <mail>",
+//     to: "mrq.quintana@gmail.com",
+//     subject: "Nuevo registro",
+//     html:`<h1 style="color:blue;"> ${newUser.first_name} ${newUser.last_name} </h1>
+//           <br>
+//           <h1 style="color:blue;"> ${newUser.phone} </h1>
+//           <br>
+//           <h1 style="color:blue;"> ${newUser.email} </h1>`
+// }
+// mailing(mail);
+// mailing(mailadmin);
+
+    cart.products=[];
+    cart._id=cid
+    await cartService.update(cart);
+    res.send({status:"success",message:"Gracias por su compra"})
+}
+
 
 
 export default {
@@ -67,5 +103,6 @@ export default {
     addProduct,
     deleteCartById,
     deleteProductInCart,
-    updateProductCartById
+    updateProductCartById,
+    confirm
 }

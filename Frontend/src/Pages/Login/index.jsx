@@ -56,7 +56,17 @@ const Login = () => {
             let user = response.data.payload.user;
             localStorage.setItem('user',JSON.stringify(user));
         }
-        window.location.replace('/')
+
+        Swal.fire({
+            icon: "success",
+            title: "Bienvenido",
+            text: userLocal.first_name? userLocal.first_name +' '+ userLocal.last_name : "Administrador",
+            timer:5000
+        })
+
+        setTimeout(function(){
+            window.location.replace('/')
+        }, 2000);
     }
     const callbackErrorLogin = (error) =>{
         console.log(error)

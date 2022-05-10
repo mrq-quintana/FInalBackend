@@ -46,9 +46,7 @@ export default class Dao {
     update = async(document,entity) =>{
         if(!this.models[entity]) throw new Error(`Entity ${entity} not found or defined`)
         let id=document._id;
-        // delete document._id;
         let result = await this.models[entity].findByIdAndUpdate(id,{$set:document},{new:true})
-        console.log(result)
         return result.toObject();
     }
     delete = async(id,entity)=>{
