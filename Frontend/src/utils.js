@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 export const isLogin = () =>{
     if(process.env.REACT_APP_AUTHENTICATION_MODE==="COOKIE"){
         let cookies = Cookies.get(process.env.REACT_APP_COOKIE_NAME)
-        console.log(cookies);
         if(!cookies){
             localStorage.clear();
             return false;

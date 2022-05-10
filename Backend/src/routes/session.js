@@ -13,7 +13,7 @@ router.get('/current',passportCall('jwt'),(req,res)=>{
 })
 
 router.post('/register',uploader.single('profilePic'),passportCall('register'),(req,res)=>{
-    res.send({status:"success",message:"Signed Up"})
+    res.send({status:"success",message:"Registrado"})
 })
 
 router.post('/login',passportCall('login'),(req,res)=>{

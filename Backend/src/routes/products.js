@@ -1,9 +1,9 @@
 import express from 'express';
-import productsController from '../controllers/products.controller.js';
+import productsController from '../controllers/products.js';
 import { uploader } from '../utils.js';
 const router = express.Router();
 
-
+//GET
 router.get('/',productsController.getAllProducts);
 router.get('/:pid',productsController.getProductById)
 //POST

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sessionService } from '../../services';
+import { sessionService } from '../../services/';
 import {Link, useNavigate} from 'react-router-dom'
 import Swal from 'sweetalert2';
 const Login = () => {
@@ -52,21 +52,32 @@ const Login = () => {
             let user = response.data.payload.user;
             localStorage.setItem('sessionToken',response.data.payload.token)
             localStorage.setItem('user',JSON.stringify(user));
+            console.log(user)
+            Swal.fire({
+                icon: "success",
+                title: "Bienvenido",
+                text: user.first_name? user.first_name +' '+ user.last_name : "Administrador",
+                timer:5000
+            })
+    
+            setTimeout(function(){
+                window.location.replace('/')
+            }, 2000);
         }else if(process.env.REACT_APP_AUTHENTICATION_MODE==="COOKIE"){
             let user = response.data.payload.user;
             localStorage.setItem('user',JSON.stringify(user));
+            console.log(user)
+            Swal.fire({
+                icon: "success",
+                title: "Bienvenido",
+                text: user.first_name? user.first_name +' '+ user.last_name : "Administrador",
+                timer:5000
+            })
+    
+            setTimeout(function(){
+                window.location.replace('/')
+            }, 2000);
         }
-
-        Swal.fire({
-            icon: "success",
-            title: "Bienvenido",
-            text: userLocal.first_name? userLocal.first_name +' '+ userLocal.last_name : "Administrador",
-            timer:5000
-        })
-
-        setTimeout(function(){
-            window.location.replace('/')
-        }, 2000);
     }
     const callbackErrorLogin = (error) =>{
         console.log(error)

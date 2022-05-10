@@ -7,7 +7,7 @@ const getAllProducts = async(req,res)=>{
 const getProductById = async(req,res)=>{
     let id = req.params.pid;
     let product = await productService.getBy({_id:id})
-    if(!product) res.status(404).send({status:"error",error:"Not found"})
+    if(!product) res.status(404).send({status:"error",error:"El producto no se encuentra"})
     res.send({status:"success",payload:product})
 }
 const saveProduct = async (req, res) => {

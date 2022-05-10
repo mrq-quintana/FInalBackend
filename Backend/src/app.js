@@ -3,10 +3,10 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import initializePassport from './config/passport.js';
-import sessionRouter from './routes/session.routes.js';
-import productsRouter from './routes/products.routes.js';
-import usersRouter from './routes/users.routes.js'
-import cartsRouter from './routes/carts.routes.js';
+import sessionRouter from './routes/session.js';
+import productsRouter from './routes/products.js';
+import usersRouter from './routes/users.js'
+import cartsRouter from './routes/carts.js';
 import logger from "./logger/logger.js";
 import core from 'os';
 import {Server} from 'socket.io';
@@ -45,7 +45,7 @@ app.use('/api/users',usersRouter);
 //WebSockets
 let connectedSockets = {};
 io.on('connection', async socket=>{
-    console.log("client connected");
+    console.log("Se conecto un cliente");
     if(socket.handshake.query.name){
         if(Object.values(connectedSockets).some(user=>user.id===socket.handshake.query.id)){
             Object.keys(connectedSockets).forEach(idSocket =>{

@@ -68,7 +68,8 @@ const confirm = async(req,res) =>{
     console.log(cart)
     console.log("Usuario")
     console.log(req.body)
-//Se envia Correo de registro
+    
+//Se envia Correo de compra
 // const mail ={
 //     from:"Confirmacion de registro <mail>",
 //     to: newUser.email,

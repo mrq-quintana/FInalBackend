@@ -20,7 +20,7 @@ export const cookieExtractor = req =>{
     }
     return token;
 }
-/*Middlewares */
+//Middlewares
 export const passportCall = (strategy) =>{
     return async(req, res, next) =>{
         passport.authenticate(strategy,function(err, user, info) {

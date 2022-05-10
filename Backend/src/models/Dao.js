@@ -44,18 +44,18 @@ export default class Dao {
         }
     }
     update = async(document,entity) =>{
-        if(!this.models[entity]) throw new Error(`Entity ${entity} not found or defined`)
+        if(!this.models[entity]) throw new Error(`La coleccion ${entity} no se encuentra`)
         let id=document._id;
         let result = await this.models[entity].findByIdAndUpdate(id,{$set:document},{new:true})
         return result.toObject();
     }
     delete = async(id,entity)=>{
-        if(!this.models[entity]) throw new Error(`Entity ${entity} not found or defined`)
+        if(!this.models[entity]) throw new Error(`La coleccion ${entity} no se encuentra`)
         let result = await this.models[entity].findByIdAndDelete(id);
         return result? result.toObject():null;
     }
     exists = async(options,entity)=>{
-        if(!this.models[entity]) throw new Error(`Entity ${entity} not found or defined`)
+        if(!this.models[entity]) throw new Error(`La coleccion ${entity} no se encuentra`)
         return this.models[entity].exists(options);
     }
 }

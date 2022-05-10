@@ -67,8 +67,8 @@ const initializePassport = () =>{
             if(username===config.session.SUPERADMIN&&password===config.session.SUPERADMIN_PASSWORD)
             return done(null,{id:0,role:"superadmin"})
             const user = await userService.getBy({email:username})
-            if(!user) return done(null,false,{messages:"No user found"});
-            if(!isValidPassword(user,password)) return done(null,false,{messages:"Incorrect password"});
+            if(!user) return done(null,false,{messages:"Usuario incorrecto"});
+            if(!isValidPassword(user,password)) return done(null,false,{messages:"Contraseña incorrecta"});
             return done(null,user);
         }catch(err){
             return done(err);
@@ -78,7 +78,7 @@ const initializePassport = () =>{
         try{
             if(jwt_payload.role==="superadmin") return done(null,jwt_payload)
             let user = await userService.getBy({_id:jwt_payload.id})
-            if(!user) return done(null,false,{messages:"User not found"})
+            if(!user) return done(null,false,{messages:"Usuario incorrecto"})
             return done(null,user);
         }catch(err){
             return done(err)
