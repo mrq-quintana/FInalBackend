@@ -8,7 +8,7 @@ import { uploader } from '../utils.js';
 const router = express.Router();
 
 router.get('/current',passportCall('jwt'),(req,res)=>{
-    let user = serialize(req.user,["first_name","last_name","role","profile_picture","cart"])
+    let user = serialize(req.user,["first_name","last_name","role","profile_picture","cart","email"])
     res.send({status:"success",payload:user});
 })
 
